@@ -1,15 +1,42 @@
 <aside class="col-lg-4">
   <!-- Widget [Search Bar Widget]-->
   <div class="widget search">
-  <header>
+    <header>
       <h3 class="h6">Search the blog</h3>
-  </header>
-  <form action="{% url 'search' %}" class="search-form">
+    </header>
+    <form action="{% url 'search' %}" class="search-form">
       <div class="form-group">
-      <input type="text" name="q" placeholder="What are you looking for?">
-      <button type="submit" class="submit"><i class="icon-search"></i></button>
+        <input type="text" name="q" placeholder="What are you looking for?">
+        <button type="submit" class="submit"><i class="icon-search"></i></button>
       </div>
-  </form>
+    </form>
+  </div>
+  <!-- Widget [Categories Widget]-->
+  <div class="widget categories">
+    <header>
+      <h3 class="h6">Categories</h3>
+    </header>
+    <div class="blog-posts">
+      {% for cat in category_count %}
+      {% csrf_token %}
+      <form class="" action="{% url 'category-search' %}" method="GET">
+        <input type="hidden" name="qry" value="{{ cat.categories__title }}">
+        <table>
+          <tbody>
+            <tr>
+              <td> <button type="submit" class="btn btn-outline-light text-dark"><strong>{{ cat.categories__title }}</strong></button> </td>
+              <td>&emsp;&emsp;&emsp;&emsp;</td>
+              {% if cat.categories__title__count > 1 %}
+              <td> <button type="submit" class="btn btn-outline-light text-dark" disabled> <i> {{ cat.categories__title__count }} posts </i></button> </td>
+              {% else %}
+              <td> <button type="submit" class="btn btn-outline-light text-dark" disabled> <i> {{ cat.categories__title__count }} post </i></button> </td>
+              {% endif %}
+            </tr>
+          </tbody>
+        </table>
+      </form>
+      {% endfor %}
+    </div>
   </div>
   <!-- Widget [Latest Posts Widget]        -->
   <div class="widget latest-posts">
@@ -20,7 +47,7 @@
       {% for post in most_recent %}
       <a href="{{ post.get_absolute_url }}">
         <div class="item d-flex align-items-center">
-          <div class="image"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div>
+          <!-- <div class="image"><img src="{{ post.thumbnail.url }}" alt="..." class="img-fluid"></div> -->
           <div class="title"><strong>{{ post.title }}</strong>
             <div class="d-flex align-items-center">
               <div class="views"><i class="icon-eye"></i> {{ post.view_count }}</div>
@@ -31,43 +58,5 @@
       </a>
       {% endfor %}
     </div>
-  </div>
-  <!-- Widget [Categories Widget]-->
-  <div class="widget categories">
-    <header>
-      <h3 class="h6">Categories</h3>
-    </header>
-    <div class="blog-posts">
-    {% for cat in category_count %}
-        {% csrf_token %}
-        <form class="" action="{% url 'category-search' %}" method="GET">
-          <!-- <input type="text" name="" value="{{ cat.categories__title }}" disabled><span>{{ cat.categories__title__count }}</span> -->
-
-          <input type="hidden" name="qry" value="{{ cat.categories__title }}">
-          <!-- <button type="submit" class="submit"></i>{{ cat.categories__title }}</button> -->
-          <!-- {% if cat.categories__title__count > 1 %}
-            <button type="submit" class="btn btn-link"></i>{{ cat.categories__title }} <span>&emsp;&emsp;&emsp;&emsp;{{ cat.categories__title__count }} posts </span> </button>
-          {% else %}
-            <button type="submit" class="btn btn-link"></i>{{ cat.categories__title }}<span>&emsp;&emsp;&emsp;&emsp;{{ cat.categories__title__count }} post </span> </button>
-          {% endif %} -->
-          <table>
-            <tbody>
-              <tr>
-                <td> <button type="submit" class="btn btn-outline-light text-dark"><strong>{{ cat.categories__title }}</strong></button> </td>
-                <td>&emsp;&emsp;&emsp;&emsp;</td>
-                {% if cat.categories__title__count > 1 %}
-                <td> <button type="submit" class="btn btn-outline-light text-dark"> <i> {{ cat.categories__title__count }} posts </i></button> </td>
-                {% else %}
-                <td> <button type="submit" class="btn btn-outline-light text-dark"> <i> {{ cat.categories__title__count }} post </i></button> </td>
-                {% endif %}
-              </tr>
-            </tbody>
-          </table>
-        </form>
-        <!-- <a name='q' href="{% url 'category-search' %}">{{ cat.categories__title }}</a><span>{{ cat.categories__title__count }}</span> -->
-      </div>
-    {% endfor %}
-
-
   </div>
 </aside>

@@ -427,9 +427,6 @@ div[class*="-btn"] {
     margin-left: 0;
     padding-left: 0;
     border-left: none;
-    margin-right: 0;
-    padding-right: 0;
-    border-right: none;
   }
 }
 
@@ -461,16 +458,15 @@ div[class*="-btn"] {
 .navbar .search-btn {
   margin-left: 20px;
   padding-left: 20px;
-  border-left: 5px solid #ddd;
+  border-left: 1px solid #ddd;
   height: 20px;
+  line-height: 20px;
 }
-
 
 .navbar .search-btn {
   color: #333;
   font-size: 0.9em;
 }
-
 
 .navbar .navbar-toggler {
   margin-top: 5px;
@@ -591,7 +587,6 @@ div[class*="-btn"] {
   font-weight: 300;
   font-size: 1.1em;
 }
-
 
 .navbar .navbar-nav a.nav-link {
   color: #333;

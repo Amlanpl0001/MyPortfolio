@@ -25,30 +25,16 @@ def get_category_count():
 
 
 def search(request):
-    # cat= category_count.categories__title
     category_count = get_category_count().all()
     queryset = Post.objects.all()
-    # print("HI")
-    print(queryset)
-    print(category_count)
-    for cat in category_count:
-        for catt in cat:
-            print(cat[catt])
     query = request.GET.get('q')
     temp = ''
     res = Post.objects.raw('select pp.title, pp.id from post_post pp inner join post_post_categories ppc on ppc.post_id = pp.id inner join post_category pc on pc.id=ppc.category_id where pc.title= %s', [query])
-    # print("HI!! ")
-    for temp in res:
-        print(temp)
-
     if query:
         queryset = queryset.filter(
             Q(title__icontains=query) |
             Q(overview__icontains=query)
         ).distinct()
-    print("queryset")
-    print(type(queryset))
-    print(queryset)
     context = {
         'queryset': queryset
     }
@@ -67,12 +53,10 @@ def category_search(request):
     queryset = queryset.filter(
         Q(id__in=x)
     ).order_by('-timestamp')
-    # featured = Post.objects.filter(featured = True).order_by('-timestamp')[0:3]
     context = {
         'queryset': queryset,
         'query' : query,
     }
-    print(queryset)
     return render(request, template, context)
 
 

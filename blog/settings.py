@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
-    #'tinymce',
+    # third party
     'ckeditor',
     'ckeditor_uploader',
     'crispy_forms',
@@ -97,18 +97,18 @@ WSGI_APPLICATION = 'blog.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'BlogAdv',
-        'USER' : 'postgres',
-        'PASSWORD': 'qwerty@12345',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
     # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'BlogAdv',
+    #     'USER' : 'postgres',
+    #     'PASSWORD': 'qwerty@12345',
+    #     'HOST': 'localhost',
+    #     'PORT': '5432',
     # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
@@ -168,4 +168,14 @@ AUTHENTICATION_BACKENDS = (
 SITE_ID = 1
 
 ACCOUNT_LOGOUT_REDIRECT_URL ='/accounts/login'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/blog'
+
+LOGOUT_REDIRECT_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'amlanpl0001.blog@gmail.com'
+EMAIL_HOST_PASSWORD = 'Zxcvbn@12345'
+EMAIL_USE_TLS = True

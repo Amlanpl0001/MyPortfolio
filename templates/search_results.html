@@ -3,10 +3,42 @@
 
 {% block content %}
 
-<h2>This is the results of your search</h2>
+<!-- <h2>This is the results of your search</h2>
 {% for post in queryset %}
     <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
     <br />
-{% endfor %}
+{% endfor %} -->
+
+<h2 style="text-align:center;">This is the results of your search</h2>
+<br>
+
+<div class="container">
+  <!-- <h3>Category Name: {{ query }} </h3><br> -->
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Post Title</th>
+        <th>Post Date</th>
+        <th>Author</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in queryset %}
+      <tr>
+        <td>
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </td>
+        <td>
+          {{ post.timestamp|date:'F j, Y' }}
+        </td>
+        <td>
+          {{ post.author }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
